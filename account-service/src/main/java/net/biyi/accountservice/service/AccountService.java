@@ -19,4 +19,5 @@ public interface AccountService {
     Account blockAccount(UUID id);
 
     BigDecimal getBalance(UUID id);
+    Account debitAccount(UUID id, BigDecimal amount);
 }

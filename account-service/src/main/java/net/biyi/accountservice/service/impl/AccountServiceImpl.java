@@ -76,4 +76,25 @@ public class AccountServiceImpl implements AccountService {
     public BigDecimal getBalance(UUID id) {
         return getAccountById(id).getBalance();
     }
+    @Override
+    public Account debitAccount(UUID id, BigDecimal amount) {
+
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Invalid debit amount");
+        }
+
+        Account account = getAccountById(id);
+
+        if (account.getStatus() != AccountStatus.ACTIVE) {
+            throw new IllegalStateException("Account is blocked");
+        }
+
+        if (account.getBalance().compareTo(amount) < 0) {
+            throw new IllegalStateException("Insufficient balance");
+        }
+
+        account.setBalance(account.getBalance().subtract(amount));
+
+        return accountRepository.save(account);
+    }
 }

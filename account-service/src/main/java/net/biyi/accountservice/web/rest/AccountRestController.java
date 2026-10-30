@@ -66,4 +66,13 @@ public class AccountRestController {
 
         return ResponseEntity.ok(accountService.getBalance(id));
     }
+    @PostMapping("/{id}/debit")
+    public ResponseEntity<Account> debitAccount(
+            @PathVariable UUID id,
+            @RequestBody DebitRequest request) {
+
+        return ResponseEntity.ok(
+                accountService.debitAccount(id, request.getAmount())
+        );
+    }
 }
