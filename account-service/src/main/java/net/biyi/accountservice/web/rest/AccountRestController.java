@@ -69,10 +69,10 @@ public class AccountRestController {
     @PostMapping("/{id}/debit")
     public ResponseEntity<Account> debitAccount(
             @PathVariable UUID id,
-            @RequestBody DebitRequest request) {
+            @RequestBody BigDecimal amount) {
 
         return ResponseEntity.ok(
-                accountService.debitAccount(id, request.getAmount())
+                accountService.debitAccount(id, amount)
         );
     }
 }
