@@ -1,0 +1,25 @@
+type Account {
+    id: ID!
+    customerReference: String!
+    status: String!
+    currency: String!
+    balance: Float!
+}
+
+input AccountInput {
+    customerReference: String!
+    currency: String!
+    balance: Float!
+}
+
+type Query {
+    accounts: [Account!]!
+    account(id: ID!): Account
+    balance(id: ID!): Float
+    accountsByCustomer(customerReference: String!): [Account!]!
+}
+
+type Mutation {
+    createAccount(input: AccountInput!): Account!
+    blockAccount(id: ID!): Account!
+}
